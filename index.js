@@ -74,6 +74,7 @@ function calculateAllComponentsNutrition(components) {
 }
 
 app.get('/ingredients', async function (req, res) {
+  console.log("Hello");
   const { Ingredient } = models;
 
   const ingredients = await Ingredient.find().lean();
