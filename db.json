@@ -1,0 +1,68 @@
+{
+  {
+    "Name": "Almond flour",
+    "Serving (g)": 100,
+    "Energy (kcal)": 606,
+    "Fat (g)": 49,
+    "Carbs (g)": 22,
+    "Protein (g)": 21,
+    "Price (£/kg)": 14.99
+  },
+  "husk": {
+    "name ": "Organic Blond Psyllium husk 500g",
+    "Serving (g)": 100,
+  
+    "Energy (kcal)": 9.8,
+    "Carb (g)": { 
+        "total": 0.2, 
+        "sugars": 0
+    },
+    "Fibre (g)": 85,
+    "Protein": 0.9
+  },
+  "peanutFlour": {
+    "name ": "BuffSupp, Premium Peanut Flour, Light Roast, 500g",
+    "Serving (g)": 30,
+    "Fat (g)": {
+        "total": 4,
+        "saturates": 0.5
+    },
+    "Carb (g)": { 
+        "total": 8, 
+        "sugars": 2
+    },
+    "Fibre (g)": 8,  
+    "Protein": 16
+  },
+  "coconutFlour": {
+    "name ": "Health Embassy Coconut Baking Flour, 450 g",
+    "Serving (g)": 100,
+    "Energy (kJ)": 1740.5,
+    "Energy (kcal)": 415.9,
+    "Fat (g)": {
+        "total": 14.99,
+        "saturates": 2.2
+    },
+    "Carb (g)": { 
+        "total": 58.82, 
+        "sugars": 20.68
+    },
+    "Fibre (g)": 8,  
+    "Protein": 15.55
+  },
+  "eggWhites": {
+    "name ": "Two Chicks Liquid Egg White 500g",
+    "Serving (g)": 100,
+    "Energy (kJ)": 202,
+    "Energy (kcal)": 48,
+    "Fat (g)": {
+        "total": 0,
+        "saturates": 0
+    },
+    "Carb (g)": { 
+        "total": 0.8, 
+        "sugars": 0.7
+    },
+    "Protein": 10.9
+  }
+}

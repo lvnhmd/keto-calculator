@@ -1,0 +1,91 @@
+<h1>Available ingredients:</h1>
+<table>
+    <% for(var i=0; i < ingredients.length; i++) { %>
+    <tr>
+        <!-- <td><%= JSON.stringify(ingredients[i].name)%></td> -->
+        <td><%= JSON.stringify(ingredients[i])%></td>
+    </tr>
+    <% } %>
+</table>
+
+<h1>Add ingredient:</h1>
+<form action="/ingredient" method="post">
+    <p>Name:&nbsp;<input type="text" name="name"></p>
+    <p>Serving (g):&nbsp;<input type="text" name="serving"></p>
+    <p>Energy (kcal):&nbsp;<input type="text" name="energy"></p>
+    <p>Fat (g):&nbsp;<input type="text" name="fat"></p>
+    <p>Carbs (g):&nbsp;<input type="text" name="carbs"></p>
+    <p>Protein (g):&nbsp;<input type="text" name="protein"></p>
+    <p>Price (£/package):&nbsp;<input type="text" name="price"></p>
+    <p>Package Size (g):&nbsp;<input type="text" name="packageSize"></p>
+    <p><input type="submit" value="Add">
+</form>
+
+<h1>Available components:</h1>
+<table>
+    <% for(var i=0; i < components.length; i++) { %>
+    <tr>
+        <td><%= JSON.stringify(components[i].name) %></td>
+        <td><%= JSON.stringify(components[i].totalNutriValue) %></td>
+    </tr>
+    <% } %>
+</table>
+
+<h1>Add component:</h1>
+<form action="/component" method="post">
+    <p>Name:&nbsp;<input type="text" name="name"></p>
+
+    <p>Ingredients:<br /><br />
+        <% for(var j=0; j < 6; j++) { %>
+        <select name="ingredients">
+            <option>Select</option>&nbsp;
+            <% for(var i=0; i < ingredients.length; i++) { %>
+            <option value=<%= ingredients[i]._id %>><%= ingredients[i].name %></option>&nbsp;
+            <% } %>
+        </select>
+        &nbsp;Amount (g):<input type="text" name="amounts"><br /><br />
+        <% } %>
+    </p>
+
+    <p><input type="submit" value="Add">
+</form>
+
+<h1>Available recipes:</h1>
+<table>
+    <% for(var i=0; i < recipes.length; i++) { %>
+    <tr>
+        <td><%= JSON.stringify(recipes[i].name) %></td>
+        <td><%= JSON.stringify(recipes[i].nutrition) %></td>
+    </tr>
+    <% } %>
+</table>
+
+<h1>Add recipes:</h1>
+<form action="/recipe" method="post">
+    <p>Name:&nbsp;<input type="text" name="recipeName"></p>
+
+    <p>Components:<br /><br />
+        <% for(var j=0; j < 3; j++) { %>
+        <select name="recipeComponents">
+            <option>Select</option>&nbsp;
+            <% for(var i=0; i < components.length; i++) { %>
+            <option value=<%= components[i]._id %>><%= components[i].name %></option>&nbsp;
+            <% } %>
+        </select><br /><br />
+        <% } %>
+    </p>
+
+    <p>Ingredients:<br /><br />
+        <% for(var j=0; j < 10; j++) { %>
+        <select name="recipeIngredients">
+            <option>Select</option>&nbsp;
+            <% for(var i=0; i < ingredients.length; i++) { %>
+            <option value=<%= ingredients[i]._id %>><%= ingredients[i].name %></option>&nbsp;
+            <% } %>
+        </select>
+        &nbsp;Amount (g):<input type="text" name="recipeAmounts"><br /><br />
+        <% } %>
+    </p>
+
+    <p><input type="submit" value="Add">
+</form>

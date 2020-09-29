@@ -1,0 +1,143 @@
+[
+  {
+    "_id": "5f036ba81ccbcdd948dc3448",
+    "name": "Pizza base",
+    "ingredients": [
+      {
+        "_id": "5efe5831db7c175906de9d03",
+        "name": "Wilton Wholefoods - GROUND ALMONDS 10KG",
+        "serving": 100,
+        "energy": 612,
+        "fat": 55.8,
+        "carbs": 6.9,
+        "protein": 21.1,
+        "price": 9,
+        "packageSize": 1000,
+        "createdAt": "2020-07-02T21:57:05.067Z",
+        "updatedAt": "2020-07-02T21:57:05.067Z",
+        "__v": 0,
+        "amount": 40,
+        "nutriValue": {
+          "energy": "245.00",
+          "fat": "22.00",
+          "carbs": "3.00",
+          "protein": "8.00"
+        }
+      },
+      {
+        "_id": "5efe6425dd68196043640de7",
+        "name": "Wholefood Earth Organic Toasted Soya Flour, 3 kg",
+        "serving": 100,
+        "energy": 346.311,
+        "fat": 21,
+        "carbs": 3,
+        "protein": 41,
+        "price": 21.88,
+        "packageSize": 3000,
+        "createdAt": "2020-07-02T22:48:05.637Z",
+        "updatedAt": "2020-07-02T22:48:05.637Z",
+        "__v": 0,
+        "amount": 25,
+        "nutriValue": {
+          "energy": "87.00",
+          "fat": "5.00",
+          "carbs": "1.00",
+          "protein": "10.00"
+        }
+      },
+      {
+        "_id": "5f036295765717d35078e2b9",
+        "name": "BuffSupp, Premium Peanut Flour, Light Roast, 500g, (17.63oz)",
+        "serving": 30,
+        "energy": 110,
+        "fat": 4,
+        "carbs": 8,
+        "protein": 16,
+        "price": 8.99,
+        "packageSize": 500,
+        "createdAt": "2020-07-06T17:42:45.651Z",
+        "updatedAt": "2020-07-06T17:42:45.651Z",
+        "__v": 0,
+        "amount": 10,
+        "nutriValue": {
+          "energy": "37.00",
+          "fat": "1.00",
+          "carbs": "3.00",
+          "protein": "5.00"
+        }
+      },
+      {
+        "_id": "5f0363cf765717d35078e2ba",
+        "name": "Milled Linseed 1 Kg - Flaxseed - High in Fibre, Rich in Omega 3",
+        "serving": 100,
+        "energy": 535,
+        "fat": 44.95,
+        "carbs": 2.3,
+        "protein": 20.4,
+        "price": 6.99,
+        "packageSize": 1000,
+        "createdAt": "2020-07-06T17:47:59.513Z",
+        "updatedAt": "2020-07-06T17:47:59.513Z",
+        "__v": 0,
+        "amount": 10,
+        "nutriValue": {
+          "energy": "54.00",
+          "fat": "4.00",
+          "carbs": "0.00",
+          "protein": "2.00"
+        }
+      },
+      {
+        "_id": "5efe5d2b01a0d95b631bbf2c",
+        "name": "Organic Blond Psyllium Husk",
+        "serving": 100,
+        "energy": 9.8,
+        "fat": 0,
+        "carbs": 0.2,
+        "protein": 0.9,
+        "price": 10.9,
+        "packageSize": 500,
+        "createdAt": "2020-07-02T22:18:19.539Z",
+        "updatedAt": "2020-07-02T22:18:19.539Z",
+        "__v": 0,
+        "amount": 10,
+        "nutriValue": {
+          "energy": "1.00",
+          "fat": "0.00",
+          "carbs": "0.00",
+          "protein": "0.00"
+        }
+      },
+      {
+        "_id": "5f03670a765717d35078e2bb",
+        "name": "Two Chicks Free Range Egg White",
+        "serving": 100,
+        "energy": 48,
+        "fat": 0,
+        "carbs": 0.8,
+        "protein": 10.9,
+        "price": 3,
+        "packageSize": 500,
+        "createdAt": "2020-07-06T18:01:46.184Z",
+        "updatedAt": "2020-07-06T18:01:46.184Z",
+        "__v": 0,
+        "amount": 50,
+        "nutriValue": {
+          "energy": "24.00",
+          "fat": "0.00",
+          "carbs": "0.00",
+          "protein": "5.00"
+        }
+      }
+    ],
+    "createdAt": "2020-07-06T18:21:28.111Z",
+    "updatedAt": "2020-07-06T18:21:28.111Z",
+    "__v": 0,
+    "totalNutriValue": {
+      "energy": 448,
+      "fat": 32,
+      "carbs": 7,
+      "protein": 30
+    }
+  }
+]
