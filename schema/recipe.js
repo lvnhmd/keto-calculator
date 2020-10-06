@@ -17,7 +17,8 @@ const schema = new Schema(
     ],
     components: [{ type: Schema.Types.ObjectId, ref: 'Component' }],
     price: { type: Number },
-    amount: { type: Number }
+    // raw weight can be calculated but cooked needs to be measured
+    weight: { raw: { type: Number }, cooked: { type: Number } },
   },
   { timestamps: true }
 );

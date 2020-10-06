@@ -29,15 +29,29 @@ const models = db({
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
+function calculateIngredientPrice(ing) {
+  const { price, packageSize } = ing.ingredient;
+  const { amount } = ing;
+  const pfa = (price / packageSize) * amount;
+  return pfa ? Number(pfa).toFixed(2) : 0;
+}
+
+function calculateComponentCost(component) {
+  const cost = component.ingredients
+    .map((ing) => calculateIngredientPrice(ing))
+    .reduce((a, cv) => Number(a) + Number(cv));
+  return Number(cost).toFixed(2);
+}
+
 function calculateOneIngredientNutritionForAmount(ingredient) {
   const { amount } = ingredient;
   const { energy, fat, carbs, protein, serving } = ingredient.ingredient;
 
   const nutritionForAmount = {
-    energy: (energy / serving) * amount,
-    fat: (fat / serving) * amount,
-    carbs: (carbs / serving) * amount,
-    protein: (protein / serving) * amount,
+    energy: energy > 0 ? (energy / serving) * amount : 0,
+    fat: fat > 0 ? (fat / serving) * amount : 0,
+    carbs: carbs > 0 ? (carbs / serving) * amount : 0,
+    protein: protein > 0 ? (protein / serving) * amount : 0,
   };
 
   return nutritionForAmount;
@@ -58,23 +72,24 @@ function calculateOneComponentNutrition(component) {
   return nutrition;
 }
 
-function calculateAllComponentsNutrition(components) {
+function calculateAllComponentsNutritionAndCost(components) {
   return components
     .map((c) => ({
       ...c,
       ingredients: c.ingredients.map((i) => ({
         ...i,
         nutrition: calculateOneIngredientNutritionForAmount(i),
+        price: calculateIngredientPrice(i),
       })),
     }))
     .map((component) => ({
       ...component,
       nutrition: calculateOneComponentNutrition(component),
+      cost: calculateComponentCost(component),
     }));
 }
 
 app.get('/ingredients', async function (req, res) {
-  console.log("Hello");
   const { Ingredient } = models;
 
   const ingredients = await Ingredient.find().lean();
@@ -97,7 +112,7 @@ app.get('/components', async function (req, res) {
     .populate('ingredients.ingredient')
     .lean();
   return res.status(200).json({
-    components: calculateAllComponentsNutrition(components),
+    components: calculateAllComponentsNutritionAndCost(components),
   });
 });
 
@@ -130,14 +145,16 @@ app.get('/recipes', async function (req, res) {
     ingredients: r.ingredients.map((i) => ({
       ...i,
       nutrition: calculateOneIngredientNutritionForAmount(i),
+      price: calculateIngredientPrice(i),
     })),
-    components: calculateAllComponentsNutrition(r.components),
+    components: calculateAllComponentsNutritionAndCost(r.components),
   }));
 
-  // calculate total recipe nutrition for each of the recipes
+  // calculate total recipe nutrition, cost and weight(only salad boxes)
   for (let i = 0; i < recipes.length; i++) {
+    let temp = [...recipes[i].ingredients];
     const ingNut = Object.values({
-      ...recipes[i].ingredients.map((ing) => ({
+      ...temp.map((ing) => ({
         ...ing.nutrition,
       })),
     }).reduce((a, cv) => ({
@@ -156,8 +173,8 @@ app.get('/recipes', async function (req, res) {
 
     if (recipes[i].components.length) {
       compNut = Object.values({
-        ...recipes[i].components.map((ing) => ({
-          ...ing.nutrition,
+        ...recipes[i].components.map((c) => ({
+          ...c.nutrition,
         })),
       }).reduce((a, cv) => ({
         energy: a.energy + cv.energy,
@@ -173,6 +190,33 @@ app.get('/recipes', async function (req, res) {
       carbs: Number(ingNut.carbs + compNut.carbs).toFixed(2),
       protein: Number(ingNut.protein + compNut.protein).toFixed(2),
     };
+
+    const ingsTotal = Object.values({
+      ...temp.map((ing) => ing.price),
+    }).reduce((a, cv) => Number(a) + Number(cv));
+
+    console.log(ingsTotal);
+
+    let compsTotal = 0;
+
+    if (recipes[i].components.length) {
+      compsTotal = Object.values({
+        ...recipes[i].components.map((c) => c.cost),
+      }).reduce((a, cv) => Number(a) + Number(cv));
+    }
+
+    console.log(compsTotal);
+
+    let weight = 0;
+
+    if (recipes[i].type === 'salad') {
+      weight = Object.values({
+        ...temp.map((ing) => ing.amount),
+      }).reduce((a, cv) => Number(a) + Number(cv));
+      recipes[i].weight = weight;
+    }
+
+    recipes[i].cost = Number(ingsTotal) + Number(compsTotal);
   }
 
   return res.status(200).json({
@@ -210,25 +254,25 @@ app.post('/ingredient', async function (req, res) {
 app.put('/component/:componentId', async function (req, res) {
   const { componentId } = req.params;
   const { Component } = models;
-  
+
   const component = await Component.findById({ _id: componentId }).lean();
 
   const updateIngredients = req.body.map((i) => ({
     _id: i.id.startsWith('temp-') ? undefined : i.id,
     amount: Number(i.amount),
-    ingredient: i.ingredient._id
+    ingredient: i.ingredient._id,
   }));
 
   const delta = jsondiffpatch.diff(component.ingredients, updateIngredients);
   const patched = [...component.ingredients];
 
   jsondiffpatch.patch(patched, delta);
-  
+
   const update = await Component.findOneAndUpdate(
     { _id: componentId },
     {
       $set: {
-        'ingredients': patched,
+        ingredients: patched,
       },
     },
     { new: true }
